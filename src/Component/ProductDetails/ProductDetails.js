@@ -1,0 +1,83 @@
+
+import { useParams } from 'react-router-dom';
+import { products } from '../Data/Data';
+import { Container, Col, Row, Button } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { cartContext } from '../../App';
+import './productdetails.css'
+
+
+
+
+const ProductDetails = () => {
+    const { id } = useParams()
+    const pd = products.find(pd => pd.id == id)
+    const [count, setCount] = useState(1)
+    const [cart, setCart] = useContext(cartContext)
+
+    const handleCountChange = (changeType) => {
+        if (changeType === 'increase') {
+            setCount(count + 1);
+        } else if (changeType === 'decrease' && count > 1) {
+            setCount(count - 1);
+        }
+    }
+
+    const addToCart = (product) => {
+    const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart')) || [];
+    const productInCart = cart.find((item) => item.product && item.product.id === product.id);
+
+    if (productInCart) {
+        const updateCart = cartFromLocalStorage.map((item) =>
+            item.product.id === product.id ? { ...item, quantity: item.quantity + count } : item
+        );
+        const others = cart.filter(item => item.product.id !== product.id);
+        const newCart = [...others, ...updateCart];
+        setCart(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+    } else {
+        const newCart = [...cart, { product: product, quantity: count }];
+        setCart(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+    }
+};
+
+
+    return (
+        <Container className='my-5'>
+            <Row>
+
+                <Col lg={7}>
+
+                    <h2 className='fs-1'>{pd.name}</h2>
+                    <p className='mt-5'>{pd.title}</p>
+                    <p>{pd.desc}</p>
+
+
+                    <div className='d-flex'>
+                        <h1>${pd.price}</h1>
+                        <div className='d-flex align-items-center ms-5 buttonGroup'  >
+                            <button onClick={() => handleCountChange('increase')}>+</button>
+                            <h5>{count}</h5>
+                            <button onClick={() => handleCountChange('decrease')}>-</button>
+                        </div>
+
+                    </div>
+
+
+                    <Button onClick={() => addToCart(pd)}>Add to Cart</Button>
+
+
+                </Col>
+
+                <Col lg={5}>
+                    <img src={pd.img} alt='' width='500px' />
+                </Col>
+            </Row>
+
+
+        </Container>
+    );
+};
+
+export default ProductDetails;

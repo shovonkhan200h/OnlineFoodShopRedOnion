@@ -1,0 +1,12 @@
+.btnGp button {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 10px;
+}
+
+button:active{
+    color: red;
+}
