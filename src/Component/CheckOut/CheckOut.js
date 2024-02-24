@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
-import { Link, json} from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import './CheckOut.css'
 
 const CheckOut = () => {
     const itemFromCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -83,7 +84,7 @@ const CheckOut = () => {
                     <p>Edit Delivery Details</p>
                     <hr />
 
-                    <form className='form-group' onSubmit={handleSubmit}>
+                    <form className='form-group fromCn' onSubmit={handleSubmit}>
                         <input className='form-control mb-2' name='fullName' value={formData.fullName} placeholder='Full Name' onChange={handleOnChange}></input>
                         <input className='form-control mb-2' name='road' value={formData.road} placeholder='Road' onChange={handleOnChange}></input>
                         <input className='form-control mb-2' name='postCode' value={formData.postCode} placeholder='Post Code' onChange={handleOnChange}></input>
@@ -94,30 +95,46 @@ const CheckOut = () => {
                     </form>
                 </Col>
 
-                <Col>
+                <Col className='align-items-center flex-column'>
                     {cart.map(item => (
-                        <div style={{ boxShadow: '0 5px 13px 0px rgb(210, 210, 210)', padding: '20px', marginBottom:'20px'  }}>
-                            <div className='d-flex align-items-center justify-content-evenly'>
+                        <div style={{ boxShadow: '0 5px 13px 0px rgb(210, 210, 210)',marginBottom:'10px',padding:'25px', width:'475px', borderRadius:'10px'}} className='ms-5'>
+                            <div className='d-flex align-items-center justify-content-between'>
                                 <img src={item.product.img} width='150px' alt='' />
                                 <div>
                                     <h4>{item.product.name}</h4>
                                     <h4>{item.product.price}</h4>
                                 </div>
-                                <div>
+                                <div className='cartBtns'>
                                     <button onClick={() => handleCountChange(item.product.id, 'increase')}>+</button>
-                                    {item.quantity}
+                                    <span>{item.quantity}</span>
                                     <button onClick={() => handleCountChange(item.product.id, 'decrease')}>-</button>
                                 </div>
                             </div>
                         </div>
                     ))}
-                    <Col className='mt-5' style={{ boxShadow: '0 5px 13px 0px rgb(210, 210, 210)', padding: '20px',}}>
-                        <h2>Price: {subTotal.toFixed(2)}</h2>
-                        <h2>Tax: {tax.toFixed(2)}</h2>
-                        <p>Delivery Fee: {deliveryFee}</p>
-                        <p>Total: {total.toFixed(2)}</p>
-                        <Button disabled={!delivaryDetailsAdded} onClick={handleCheckout}>Checkout</Button>
-                    </Col>
+                    <div className='mt-2 ms-5' style={{width:'475px'}}>
+                    <p className="d-flex justify-content-between">
+                            <span>SubTotal: {}</span>
+                            <span>${subTotal.toFixed(2)}</span>
+                        </p>
+
+                        <p className="d-flex justify-content-between">
+                            <span>Delivery Fee:</span>
+                            <span>${deliveryFee.toFixed(2)}</span>
+                        </p>
+
+                        <p className="d-flex justify-content-between">
+                            <span>Tax:</span>
+                            <span>${tax.toFixed(2)}</span>
+                        </p>
+
+                        <p className="d-flex justify-content-between">
+                            <span>Total:</span>
+                            <span>${total.toFixed(2)}</span>
+                        </p>
+                        
+                        <Button style={{width:'475px'}} disabled={!delivaryDetailsAdded} onClick={handleCheckout}>{!delivaryDetailsAdded ? 'First Add Delivary Details' : 'CheckOut'}</Button>
+                    </div>
                 </Col>
             </Row>
             <Modal show={showModal} onHide={handleCloseModal}>

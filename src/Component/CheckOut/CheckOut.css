@@ -1,0 +1,23 @@
+.fromCn input{
+    width: 500px;
+}
+
+.fromCn button {
+    width: 500px;
+}
+
+.cartBtns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartBtns button{
+    background: transparent;
+    border: none;
+}
+
+.cartBtns span{
+    background-color: aliceblue;
+    border-radius: 10px;
+}
