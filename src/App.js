@@ -9,6 +9,7 @@ import ProductDetails from './Component/ProductDetails/ProductDetails';
 import './App.css'
 import Cart from './Component/Cart/Cart';
 import CheckOut from './Component/CheckOut/CheckOut';
+import OrderComplete from './OrderComplete/OrderComplete';
 export const cartContext = createContext()
 
 
@@ -26,6 +27,7 @@ const [cart,setCart] = useState([])
             <Route path='/' element={<MainPage />} />
             <Route path='/food/:id' element={<ProductDetails></ProductDetails>} />
             <Route path='/CheckOut' element={<CheckOut></CheckOut>}/>
+            <Route path='/OrderComplete' element={<OrderComplete></OrderComplete>}/>
           </Routes>
           <Footer />
         </>
