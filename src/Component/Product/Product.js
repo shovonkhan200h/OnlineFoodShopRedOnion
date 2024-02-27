@@ -41,8 +41,8 @@ const Product = () => {
         <Container className='my-5 text-center'>
             <div className='mt-5 btnGp'>
                 <button onClick={() => filterProducts('breakfast')} className={activeCat === 'breakfast' ? 'active' : ''}>breakfast</button>
-                <button onClick={() => filterProducts('lunch')} className={activeCat === 'breakfast' ? 'active' : ''}>Lunch</button>
-                <button onClick={() => filterProducts('lunch')} className={activeCat === 'breakfast' ? 'active' : ''}>Dinner</button>
+                <button onClick={() => filterProducts('lunch')} className={activeCat === 'lunch' ? 'active' : ''}>Lunch</button>
+                <button onClick={() => filterProducts('dinner')} className={activeCat === 'dinner' ? 'active' : ''}>Dinner</button>
             </div>
             <Row className='mt-5'>
                 {

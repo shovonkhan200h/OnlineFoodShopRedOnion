@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import backGroundImage from '../../images/bannerbackground.png';
-import { Col,Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import './Hero.css'
+import { Link } from 'react-router-dom';
 
 
 const Hero = () => {
+    const [search,setSerach]= useState(null)
+    const getQury = e => setSerach(e.target.value)
+    
+
     const containStyle = {
         backgroundImage: `url(${backGroundImage})`,
         backgroundSize: 'cover',
@@ -26,8 +31,8 @@ const Hero = () => {
                 <h1>Best Food waiting for your belly</h1>
 
                 <Col className='d-flex aling-items-center justify-content-center position-relative box'>
-                    <input className='form-control border'></input>
-                    <button>Search</button>
+                    <input className='form-control border text-center' onChange={getQury} id='' type='text' placeholder='Search For the Food'></input>
+                    <Link to={'/search' + search}><button>Search</button></Link>
                 </Col>
             </Container>
         </Container>
