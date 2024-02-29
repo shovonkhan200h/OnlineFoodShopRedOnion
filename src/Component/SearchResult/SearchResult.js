@@ -24,8 +24,8 @@ const SearchResult = () => {
            <Row className='mt-5'>
                 {
                     SearchResult.slice(0, 6).map((item, index) =>
-                        <Col style={{ cursor: 'pointer', marginBottom:'20px',boxShadow: isHover === index ? '0 5px 13px 0px rgb(210, 210, 210)' : '' }}
-                            className='p-5'
+                        <Col style={{ cursor: 'pointer',width:'auto',boxShadow: isHover === index ? '0 5px 13px 0px rgb(210, 210, 210)' : '' }}
+                            className='p-5 mb-5'
                             xl={4} lg={4} md={6} sm={12} 
                             key={item.id}
                             onMouseEnter={() => handleMouseEnter(index)}

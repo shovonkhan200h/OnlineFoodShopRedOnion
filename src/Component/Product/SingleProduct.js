@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const SingleProduct = ({ product }) => {
     const { name, title, price, img, id } = product;
     return (
-        <Container>
+        <Container className=' d-flex flex-column align-items-center justify-content-center text-center'>
             <Link to={'/food/' + id} style={{ textDecoration: 'none', color: 'black' }}>
 
                 
