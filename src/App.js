@@ -3,12 +3,12 @@ import Header from './Component/Header/Header';
 import Hero from './Component/Hero/Hero';
 import Product from './Component/Product/Product';
 import Whyus from './Component/Whyus/Whyus';
-import Footer from './Footer/Footer';
+import Footer from './Component/Footer/Footer';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ProductDetails from './Component/ProductDetails/ProductDetails';
 import './App.css'
 import CheckOut from './Component/CheckOut/CheckOut';
-import OrderComplete from './OrderComplete/OrderComplete';
+import OrderComplete from './Component/OrderComplete/OrderComplete';
 import SearchResult from './Component/SearchResult/SearchResult';
 export const cartContext = createContext()
 

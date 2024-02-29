@@ -11,11 +11,12 @@ const Whyus = () => {
     return (
         <Container className='mt-5 mb-5 d-flex aling-items-center justify-content-center flex-column'>
             <h2 className=''>Why you choose us</h2>
+            <hr/>
             <Row className='d-flex aling-items-center text-center justify-content-center'>
                 {
                     post.map((post,index) =>
                         <Col lg={4} md={6} key={index} className='d-flex aling-items-center justify-content-center p-5'>
-                            <Card style={{ width: '18rem' }}>
+                            <Card style={{ width: '18rem',border:'none' }}>
                                 <Card.Img variant="top" src={post.img} />
                                 <Card.Body>
                                     <Card.Title>{post.title}</Card.Title>

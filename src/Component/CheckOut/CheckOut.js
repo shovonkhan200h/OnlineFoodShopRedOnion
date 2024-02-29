@@ -59,7 +59,6 @@ const CheckOut = () => {
 
     const [delivaryDetailsAdded, setDetailAdded] = useState(false)
 
-
     const handleSubmit = e => {
         localStorage.setItem('userInfo', JSON.stringify(formData))
         setDetailAdded(true)
