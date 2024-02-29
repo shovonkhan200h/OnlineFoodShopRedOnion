@@ -7,10 +7,9 @@ import Footer from './Footer/Footer';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ProductDetails from './Component/ProductDetails/ProductDetails';
 import './App.css'
-import Cart from './Component/Cart/Cart';
 import CheckOut from './Component/CheckOut/CheckOut';
 import OrderComplete from './OrderComplete/OrderComplete';
-import SerachResult from './Component/SerachResult/SerachResult';
+import SearchResult from './Component/SearchResult/SearchResult';
 export const cartContext = createContext()
 
 
@@ -29,7 +28,7 @@ const [cart,setCart] = useState([])
             <Route path='/food/:id' element={<ProductDetails></ProductDetails>} />
             <Route path='/CheckOut' element={<CheckOut></CheckOut>}/>
             <Route path='/OrderComplete' element={<OrderComplete></OrderComplete>}/>
-            <Route path='/SearchResult' element={<SerachResult></SerachResult>}></Route>
+            <Route path='/SearchResult/:search' element={<SearchResult></SearchResult>}/>
           </Routes>
           <Footer />
         </>

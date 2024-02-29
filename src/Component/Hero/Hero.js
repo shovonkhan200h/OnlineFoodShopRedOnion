@@ -7,22 +7,23 @@ import { Link } from 'react-router-dom';
 
 
 const Hero = () => {
-    const [search,setSerach]= useState(null)
+    const [search, setSerach] = useState('')
     const getQury = e => setSerach(e.target.value)
-    
+    console.log(search);
+
 
     const containStyle = {
         backgroundImage: `url(${backGroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat:'no=repeat',
-        width:'100%',
+        backgroundRepeat: 'no=repeat',
+        width: '100%',
         height: '80vh',
         display: 'flex',
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center',
-        postion:'relative',
-        objectFit:'contain'
+        postion: 'relative',
+        objectFit: 'contain'
     };
 
     return (
@@ -32,7 +33,10 @@ const Hero = () => {
 
                 <Col className='d-flex aling-items-center justify-content-center position-relative box'>
                     <input className='form-control border text-center' onChange={getQury} id='' type='text' placeholder='Search For the Food'></input>
-                    <Link to={'/search' + search}><button>Search</button></Link>
+                   <Link to={`/SearchResult/` + search}>
+                   <button>Search</button>
+                   </Link>  
+                   
                 </Col>
             </Container>
         </Container>
