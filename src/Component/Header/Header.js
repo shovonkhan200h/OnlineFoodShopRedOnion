@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,8 +7,15 @@ import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
 
 
+
+
+
+
 const Header = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+
+
     return (
 
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -27,7 +34,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto"> {/* 'ms-auto' class aligns items to the right */}
                        <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
-                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link>Login</Nav.Link>
                         <Button>Sing Up</Button>
 
                     </Nav>

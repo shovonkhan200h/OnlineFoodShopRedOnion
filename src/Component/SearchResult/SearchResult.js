@@ -19,8 +19,9 @@ const SearchResult = () => {
 
     return (
         <Container className=' d-flex flex-column align-items-center justify-content-center text-center text-black'>
-            <h2>Search Results</h2>
-            <hr  />
+            
+                <h2 className='mt-5'>Search Result</h2>
+
             <Row className='mt-5'>
                 {
                     SearchResult.slice(0, 6).map((item, index) =>

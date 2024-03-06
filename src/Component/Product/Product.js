@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import './product.css'
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+
 
 const Product = () => {
     const [product, setProduct] = useState([])
@@ -35,12 +35,12 @@ const Product = () => {
         setHover(-1)
     }
 
-    
+
 
     return (
         <Container className='my-5 text-center'>
             <div className='mt-5 btnGp'>
-                <button onClick={() => filterProducts('breakfast')} className={activeCat === 'breakfast' ? 'active' : ''}>breakfast</button>
+                <button onClick={() => filterProducts('breakfast')} className={activeCat === 'breakfast' ? 'active' : ''}>Breakfast</button>
                 <button onClick={() => filterProducts('lunch')} className={activeCat === 'lunch' ? 'active' : ''}>Lunch</button>
                 <button onClick={() => filterProducts('dinner')} className={activeCat === 'dinner' ? 'active' : ''}>Dinner</button>
             </div>
@@ -53,9 +53,9 @@ const Product = () => {
                             onMouseEnter={() => handleMouseEnter(index)}
                             onMouseLeave={handleMouseLeave}
                         >
-                            
+
                             <SingleProduct product={item}></SingleProduct>
-                            
+
 
                         </Col>)
                 }
