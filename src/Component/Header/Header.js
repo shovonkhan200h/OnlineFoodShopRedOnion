@@ -32,11 +32,11 @@ const Header = () => {
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
+
                     <Nav className="ms-auto"> {/* 'ms-auto' class aligns items to the right */}
-                       <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
+                        <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
                         <Nav.Link>Login</Nav.Link>
                         <Button>Sing Up</Button>
-
                     </Nav>
                 </Navbar.Collapse>
             </Container>
