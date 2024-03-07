@@ -36,7 +36,7 @@ const Footer = () => {
 
                     <Col>
                         <Row>
-                            <Col><small>Copyright @2023</small></Col>
+                            <Col><small>Copyright @2024 </small></Col>
                             
                             <Col className='text-center'>
                                 <ul className='list-inline'>

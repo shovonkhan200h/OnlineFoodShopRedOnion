@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 
 
+
 const Header = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -35,7 +36,7 @@ const Header = () => {
 
                     <Nav className="ms-auto"> {/* 'ms-auto' class aligns items to the right */}
                         <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
-                        <Nav.Link>Login</Nav.Link>
+                        <Nav.Link as={Link} to='/Login'>Login</Nav.Link>
                         <Button>Sing Up</Button>
                     </Nav>
                 </Navbar.Collapse>

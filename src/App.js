@@ -10,6 +10,7 @@ import './App.css'
 import CheckOut from './Component/CheckOut/CheckOut';
 import OrderComplete from './Component/OrderComplete/OrderComplete';
 import SearchResult from './Component/SearchResult/SearchResult';
+import Login from './Component/Login/Login';
 export const cartContext = createContext()
 
 
@@ -30,6 +31,7 @@ const [logedIn,setLogedInUser]= useState(false)
             <Route path='/CheckOut' element={<CheckOut></CheckOut>}/>
             <Route path='/OrderComplete' element={<OrderComplete></OrderComplete>}/>
             <Route path='/SearchResult/:search' element={<SearchResult></SearchResult>}/>
+            <Route path='/Login' element={<Login></Login>}/>
           </Routes>
           <Footer />
         </>
