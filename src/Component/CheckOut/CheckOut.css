@@ -1,11 +1,3 @@
-.fromCn input{
-    width: 500px;
-}
-
-.fromCn button {
-    width: 500px;
-}
-
 .cartBtns{
     display: flex;
     flex-direction: column;
