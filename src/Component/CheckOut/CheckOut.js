@@ -143,12 +143,17 @@ const CheckOut = () => {
                         </p>
 
                         <div className="d-grid">
-                            <Button variant="primary" size="md"
-                                disabled={!delivaryDetailsAdded}
-                                onClick={handleCheckout}>
-
-                                {!delivaryDetailsAdded ? 'First Add Delivary Details' : 'CheckOut'}
-                            </Button>
+                            
+                                {!delivaryDetailsAdded ? (
+                                    <Button variant="primary" size="md" disabled>
+                                        CheckOut
+                                    </Button>
+                                ) : (
+                                    <Button variant="primary" size="md" onClick={handleCheckout}>
+                                        CheckOut
+                                    </Button>
+                                )}
+                           
                         </div>
 
                     </div>
@@ -174,7 +179,7 @@ const CheckOut = () => {
                         Edit
                     </Button>
 
-                    <Link to='/OrderComplete'><Button>Confrim</Button></Link>
+                    <Link to='/Login'><Button>Confrim</Button></Link>
                 </Modal.Footer>
             </Modal>
         </Container>

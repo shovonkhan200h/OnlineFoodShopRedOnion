@@ -1,12 +1,47 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import logo from '../../images/logo2.png'
-import loginWithGoogle from '../Utility/loginManager';
 import backGroundImage from '../../images/bannerbackground.png';
 import './Login.css'
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from '../Utility/configaration';
 
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { cartContext } from '../../App';
+const provider = new GoogleAuthProvider();
+initializeApp(firebaseConfig);
 
 const Login = () => {
+    const [logedIn,setLogedInUser]=useContext(cartContext)
+    const [demo, setDemo] = useState({
+        isSingedIn: false,
+        name: '',
+        email: '',
+        photo: ''
+    })
+    const LoginWithGoogle = () => {
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const { displayName, photoURL, email } = result.user;
+                const sinedInUser = {
+                    isSingedIn: true,
+                    name: displayName,
+                    email: email,
+                    photo: photoURL
+                }
+                setDemo(sinedInUser)
+                setLogedInUser(sinedInUser)
+            }).catch((error) => {
+
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.customData.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+    }
 
     const containStyle = {
         backgroundImage: `url(${backGroundImage})`,
@@ -47,11 +82,11 @@ const Login = () => {
                             />
 
                             <div className="d-grid gap-2 mt-2 btnss">
-                                <Button variant="primary" onClick={loginWithGoogle}>
+                                <Button variant="primary" >
                                     Sing In
                                 </Button>
                                 <p className='text-center'>OR</p>
-                                <Button variant="secondary" >
+                                <Button variant="secondary" onClick={LoginWithGoogle}>
                                     Sing In with Google
                                 </Button>
                                 <Button variant="secondary">

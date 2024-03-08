@@ -16,7 +16,8 @@ export const cartContext = createContext()
 
 function App() {
 const [cart,setCart] = useState([])
-const [logedIn,setLogedInUser]= useState(false)
+const [logedIn,setLogedInUser]= useState([])
+
 
 
 
