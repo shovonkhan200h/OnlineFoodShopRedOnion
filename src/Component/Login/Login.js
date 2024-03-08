@@ -1,45 +1,70 @@
 import React from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import logo from '../../images/logo2.png'
 import loginWithGoogle from '../Utility/loginManager';
+import backGroundImage from '../../images/bannerbackground.png';
+import './Login.css'
 
 
 const Login = () => {
+
+    const containStyle = {
+        backgroundImage: `url(${backGroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no=repeat',
+        width: 'auto',
+        height: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        postion: 'relative',
+        objectFit: 'contain'
+    };
+
     return (
-        <Container >
-
-            
-                <Row className='d-flex align-items-center flex-column text-center'>
-                    <Col>
-                    <img src={logo} alt='' width='400px' className='mb-5 mt-5 img-fluid' />
-                    <p>Welcome Back</p>
+        <Container fluid style={containStyle}>
+            <Container>
+                <Row>
+                    <Col lg='12' className='text-center'>
+                        <Image src={logo} width='400px' />
                     </Col>
-                    
-                    <Col>
-                    <form className='form-group'>
-                        <input placeholder='Email' className='form-control mb-2'></input>
-                        <input placeholder='Password' className='form-control mb-2'></input>
-                        
-                        <div className="d-grid">
-                            <Button variant="primary" size="md" onClick={loginWithGoogle} className='mb-2'>
-                                Sing In
-                            </Button>
-                            <p>Or</p>
-                            <Button variant="primary" size="md" className='mb-2'>
-                                Sing In
-                            </Button>
 
-                            <Button variant="primary" size="md">
-                                Sing In
-                            </Button>
-                        </div>
-                    </form>
+                    <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Email"
+                                className='mb-2'
+                            />
+
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="First name"
+
+                            />
+
+                            <div className="d-grid gap-2 mt-2 btnss">
+                                <Button variant="primary" onClick={loginWithGoogle}>
+                                    Sing In
+                                </Button>
+                                <p className='text-center'>OR</p>
+                                <Button variant="secondary" >
+                                    Sing In with Google
+                                </Button>
+                                <Button variant="secondary">
+                                    Create a New Account
+                                </Button>
+                            </div>
+
+                        </Form.Group>
                     </Col>
-                   
                 </Row>
-            
-
+            </Container>
         </Container>
+
 
     );
 };

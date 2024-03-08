@@ -34,6 +34,7 @@ const [logedIn,setLogedInUser]= useState(false)
             <Route path='/Login' element={<Login></Login>}/>
           </Routes>
           <Footer />
+          
         </>
       </BrowserRouter>
     </cartContext.Provider>
@@ -50,6 +51,7 @@ const MainPage = () => {
       <Hero />
       <Product />
       <Whyus />
+      
     </>
   );
 };
