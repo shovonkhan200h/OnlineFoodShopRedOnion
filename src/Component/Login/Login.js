@@ -5,20 +5,24 @@ import backGroundImage from '../../images/bannerbackground.png';
 import './Login.css'
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../Utility/configaration';
-
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { cartContext } from '../../App';
 const provider = new GoogleAuthProvider();
 initializeApp(firebaseConfig);
 
+
+
+
 const Login = () => {
-    const [logedIn,setLogedInUser]=useContext(cartContext)
+    const [logedIn, setLogedInUser] = useContext(cartContext)
     const [demo, setDemo] = useState({
         isSingedIn: false,
         name: '',
         email: '',
         photo: ''
     })
+
+    
     const LoginWithGoogle = () => {
         const auth = getAuth();
         signInWithPopup(auth, provider)
@@ -33,7 +37,7 @@ const Login = () => {
                     photo: photoURL
                 }
                 setDemo(sinedInUser)
-                setLogedInUser(sinedInUser)
+                setLogedInUser(sinedInUser,true)
             }).catch((error) => {
 
                 const errorCode = error.code;
@@ -56,6 +60,22 @@ const Login = () => {
         postion: 'relative',
         objectFit: 'contain'
     };
+
+    // const userSingIn = () => {
+    //     const auth = getAuth();
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
+    //             // Signed in 
+    //             const user = userCredential.user;
+    //             // ...
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //         });
+    // }
+
+
 
     return (
         <Container fluid style={containStyle}>
