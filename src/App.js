@@ -16,7 +16,8 @@ export const cartContext = createContext()
 
 function App() {
 const [cart,setCart] = useState([])
-const [logedIn,setLogedInUser]= useState([])
+const [logedIn,setLogedInUser]= useState(false)
+
 
 
 
@@ -29,7 +30,7 @@ const [logedIn,setLogedInUser]= useState([])
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='/food/:id' element={<ProductDetails></ProductDetails>} />
-            <Route path='/CheckOut' element={<CheckOut></CheckOut>}/>
+            <Route path='/checkOut' element={<CheckOut></CheckOut>}/>
             <Route path='/OrderComplete' element={<OrderComplete></OrderComplete>}/>
             <Route path='/SearchResult/:search' element={<SearchResult></SearchResult>}/>
             <Route path='/Login' element={<Login></Login>}/>

@@ -5,23 +5,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../images/logo2.png';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
+import Out from '../Utility/loginManager';
 import { cartContext } from '../../App';
-import { getAuth, signOut } from "firebase/auth";
+
 
 
 const Header = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const [logedIn,setLoggedInUser] = useContext(cartContext)
-    
-
-    const handleSingOut = () => {
-        const auth = getAuth();
-            signOut(auth).then(() => {
-                setLoggedInUser(false); // Update the context after sign-out
-            }).catch((error) => {
-                console.error("Sign out error:", error);
-            })
-    }
+    const [logedIn]= useContext(cartContext)
+ 
 
     return (
 
@@ -52,7 +44,7 @@ const Header = () => {
                         </Nav.Link>
 
                         {
-                            logedIn.isSingedIn ? (<Button onClick={handleSingOut}>Sing Out</Button>) : (<Button to='/Login'>Sing Up</Button>)
+                            logedIn.isSingedIn ? (<Button>Sing Out</Button>) : (<Link to='/Login'><Button>Sing Up</Button></Link>)
                         }
 
                     </Nav>
