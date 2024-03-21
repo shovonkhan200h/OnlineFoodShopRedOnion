@@ -1,33 +1,30 @@
 import React, { useContext, useState } from 'react';
+import { initializeApp } from "firebase/app";
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
-import logo from '../../images/logo2.png'
-import backGroundImage from '../../images/bannerbackground.png';
-import './Login.css'
-import { initializeApp } from 'firebase/app';
-import firebaseConfig from '../Utility/configaration';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { cartContext } from '../../App';
-initializeApp(firebaseConfig);
+import { useNavigate } from 'react-router-dom';
+import logo from '../../images/logo2.png'
+import './Login.css'
 
-const containStyle = {
-    backgroundImage: `url(${backGroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no=repeat',
-    width: 'auto',
-    height: '80vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    postion: 'relative',
-    objectFit: 'contain'
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBrJnSiPskqUbghw4Ch_RJJGmlcUMZP0TQ",
+    authDomain: "online-shop-48542.firebaseapp.com",
+    projectId: "online-shop-48542",
+    storageBucket: "online-shop-48542.appspot.com",
+    messagingSenderId: "545529172917",
+    appId: "1:545529172917:web:33c379fb237f17b4fffffc"
 };
 
-const provider = new GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
 
 const Login = () => {
+    const auth = getAuth(app);
+    const navigate = useNavigate();
+    const provider = new GoogleAuthProvider();
     const [logedIn, setLogedInUser] = useContext(cartContext)
-    const [newUser, setNewUser] = useState(true)
+    const [newUser, setNewuser] = useState(false)
     const [user, setUser] = useState({
         isSingedIn: false,
         name: '',
@@ -35,196 +32,165 @@ const Login = () => {
         photo: ''
     })
 
-
-    const LoginWithGoogle = () => {
+    const googleSingIn = () => {
         const auth = getAuth();
         signInWithPopup(auth, provider)
             .then((result) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
-                const { displayName, photoURL, email } = result.user;
-                const sinedInUser = {
+                const user = result.user;
+                console.log(user);
+                const { displayName, photoURL, email } = user;
+                const isSingedIn = {
                     isSingedIn: true,
                     name: displayName,
                     email: email,
                     photo: photoURL
                 }
-                setUser(sinedInUser)
-                setLogedInUser(sinedInUser)
-            }).catch((error) => {
+                setUser(isSingedIn)
+                setLogedInUser(isSingedIn)
+                navigate('/');
 
+            }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 const email = error.customData.email;
                 const credential = GoogleAuthProvider.credentialFromError(error);
+
             });
     }
 
 
+    // const handleOnSubmit = (e) => {
+    //     e.preventDefault(); // Prevent the default form submission behavior
 
-    const handeBlur = (e) => {
-        let formValid = true;
-        if (e.target.name === 'email') {
-            formValid = /^\S+@\S+\.\S+$/.test(e.target.value);
-        }
-        if (formValid) {
-            const newUserInfo = { ...user };
-            newUserInfo[e.target.name] = e.target.value;
-            setUser(newUserInfo);
-        }
-    }
+    //     const formData = new FormData(e.target); // Get form data
+    //     const email = formData.get('email'); // Get email value
+    //     const password = formData.get('password'); // Get password value
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        const auth = getAuth();
+    //     console.log(`click`)
 
-        if (newUser && user.name && user.email && user.password) {
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, user.email, user.password, user.name)
-              .then((userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-                
-                // ...
-              })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-              });
-        } else if (!newUser && user.email && user.password) {
-            // Sign in existing user
-            signInWithEmailAndPassword(auth, user.email, user.password)
+    // }
+
+    const handleOnSubmit = (e) => {
+        const formData = new FormData(e.target); // Get form data
+        const email = formData.get('email'); // Get email value
+        const password = formData.get('password');
+
+        if (newUser) {
+            createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    // Handle successful sign-in
-                    const signedInUser = userCredential.user;
-                    console.log("User signed in:", signedInUser);
-                    // Update state or perform any necessary actions
+                    // Signed up 
+                    const user = userCredential.user;
+                    const isSingedIn = {
+                        isSingedIn: true,
+                        name: email,
+                        password: password
+                    }
+                    setLogedInUser({...user, isSingedIn:true})
+                    navigate('/');
+                    // ...
                 })
                 .catch((error) => {
-                    // Handle sign-in errors
-                    console.error("Error signing in:", error);
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
                 });
         } else {
-            // Handle case where required fields are missing
-            console.error("Missing required fields for authentication");
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    const isSingedIn = {
+                        isSingedIn: true,
+                        name: email,
+                        password: password
+                    }
+                    setLogedInUser({...user,isSingedIn:true})
+                    navigate('/');
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                });
         }
-    };
 
-
-
-    const singOut = () => {
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            const isSingOut = {
-                isSingedIn: false,
-                name: '',
-                email: '',
-                photo: ''
-            }
-            setUser(isSingOut)
-            setLogedInUser(isSingOut)
-        }).catch((error) => {
-
-        });
     }
-
+    console.log(newUser)
     return (
-        <Container fluid style={containStyle}>
-            <Container>
-                {
-                    newUser ? (<Row>
+        <Container fluid className=''>
+        <Container>
+            {
+                newUser ? (<Row>
+                    <Col lg='12' className='text-center'>
+                        <Image src={logo} width='400px' />
+                    </Col>
+
+                    <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
+                        <Form onSubmit={handleOnSubmit}>
+                            <Form.Group>
+                                <Form.Control
+                                    name='email' type='email' placeholder='email'
+                                />
+                                <Form.Control
+                                    name='password' type='password' placeholder='password'
+                                />
+                                <div className="d-grid gap-2 mt-2 btnss">
+                                    <Button variant="primary" type='submit'>
+                                        SingUp
+                                    </Button>
+                                </div>
+                            </Form.Group>
+                        </Form>
+                    </Col>
+
+                    <Col lg='12' className='d-flex align-items-center justify-content-center'>
+                        <div className="d-grid gap-2 mt-2 btnss">
+                            <h2 className='text-center'>OR</h2>
+                            <Button onClick={googleSingIn}>Sing with Google</Button>
+                            <Button onClick={() => setNewuser(false)}>Create New User</Button>
+                        </div>
+                    </Col>
+                </Row>)
+
+                    :
+
+                    (<Row>
                         <Col lg='12' className='text-center'>
                             <Image src={logo} width='400px' />
                         </Col>
 
                         <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={handleOnSubmit}>
                                 <Form.Group>
                                     <Form.Control
-                                        required
-                                        type="text"
-                                        name='email'
-                                        placeholder="Email"
-                                        className='mb-2'
-                                        onBlur={handeBlur}
+                                        name='email' type='email' placeholder='email'
                                     />
-
                                     <Form.Control
-                                        required
-                                        name='password'
-                                        type="password"
-                                        placeholder="Password"
-                                        onBlur={handeBlur}
-
+                                        name='password' type='password' placeholder='password'
                                     />
-
                                     <div className="d-grid gap-2 mt-2 btnss">
                                         <Button variant="primary" type='submit'>
-                                            Sing In
+                                            Login
                                         </Button>
-                                        <p className='text-center'>OR</p>
-
-                                        <Button onClick={LoginWithGoogle}>Sing with Google</Button>
-                                        <Button onClick={() => setNewUser(false)}>Create New User</Button>
                                     </div>
                                 </Form.Group>
                             </Form>
                         </Col>
+
+                        <Col lg='12' className='d-flex align-items-center justify-content-center'>
+                            <div className="d-grid gap-2 mt-2 btnss">
+                                <h2 className='text-center'>OR</h2>
+                                <Button onClick={googleSingIn}>Sing with Google</Button>
+                                <Button onClick={() => setNewuser(true)}>Already Have Account</Button>
+                            </div>
+                        </Col>
                     </Row>)
-                        :
-                        (<Row>
-                            <Col lg='12' className='text-center'>
-                                <Image src={logo} width='400px' />
-                            </Col>
+            }
 
-                            <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group>
-
-                                        <Form.Control
-                                            required
-                                            name='name'
-                                            type="text"
-                                            placeholder="Name"
-                                            onBlur={handeBlur}
-                                            className='mb-2'
-
-                                        />
-
-                                        <Form.Control
-                                            required
-                                            type="text"
-                                            name='email'
-                                            placeholder="Email"
-                                            className='mb-2'
-                                            onBlur={handeBlur}
-                                        />
-
-                                        <Form.Control
-                                            required
-                                            name='password'
-                                            type="password"
-                                            placeholder="Password"
-                                            onBlur={handeBlur}
-
-                                        />
-
-                                        <div className="d-grid gap-2 mt-2 btnss">
-                                            <Button variant="primary" type='submit'>
-                                                Sing Up
-                                            </Button>
-                                            <Button onClick={() => setNewUser(true)}>Already Have Account</Button>
-                                        </div>
-                                    </Form.Group>
-                                </Form>
-                            </Col>
-                        </Row>)
-                }
-            </Container>
         </Container>
-
-
+        </Container>
     );
 };
 

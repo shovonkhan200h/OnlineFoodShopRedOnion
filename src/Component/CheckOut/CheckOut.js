@@ -89,7 +89,7 @@ const CheckOut = () => {
                         <input className='form-control mb-2' name='postCode' value={formData.postCode} placeholder='Post Code' onChange={handleOnChange}></input>
                         <input className='form-control mb-2' name='town' value={formData.town} placeholder='Town' onChange={handleOnChange}></input>
                         <input className='form-control mb-2' name='country' value={formData.country} placeholder='Country' onChange={handleOnChange}></input>
-                        <input className='form-control mb-2' name='mobile' value={formData.mobile} placeholder='Mobile' onChange={handleOnChange}></input> {/* removed the extra space from the field name */}
+                        <input className='form-control mb-2' name='mobile' value={formData.mobile} placeholder='Mobile' onChange={handleOnChange}></input> 
 
                         <div className="d-grid">
                             <Button variant="primary" size="md" type='submit'>

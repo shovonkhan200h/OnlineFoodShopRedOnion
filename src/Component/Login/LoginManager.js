@@ -41,9 +41,9 @@ export const signOutUser = async() => {
     });
 }
 
-export const createUser =async(email,password)=>{
+export const createUser =async(email,password,name)=>{
     const auth = getAuth();
-           return await createUserWithEmailAndPassword(auth,email, password)
+           return await createUserWithEmailAndPassword(auth,email, password, name)
                 .then(res => {
                     const newUser = res.user;
                     newUser.error = ''

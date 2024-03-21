@@ -26,7 +26,7 @@ const [logedIn,setLogedInUser]= useState(false)
     <cartContext.Provider value={[cart,setCart,logedIn,setLogedInUser]}>
       <BrowserRouter>
         <>
-          <Header />
+          <Header/>
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route path='/food/:id' element={<ProductDetails></ProductDetails>} />

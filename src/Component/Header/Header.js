@@ -3,16 +3,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../images/logo2.png';
-import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
-import Out from '../Utility/loginManager';
 import { cartContext } from '../../App';
+
 
 
 
 const Header = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const [logedIn]= useContext(cartContext)
+    const [logedIn]=useContext(cartContext)
+    console.log(logedIn);
+    
  
 
     return (
@@ -34,19 +35,12 @@ const Header = () => {
 
                     <Nav className="ms-auto">
                         <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
-                        <Nav.Link as={Link} to='/Login'>
-                            {
-                                logedIn.isSingedIn ? (<div className='d-flex gap-2'>
-                                    <div><img src={logedIn.photo} alt='' width='20px' className='rounded' /></div>
-                                    <div><p>{logedIn.name}</p></div>
-                                </div>) : 'Login'
-                            }
-                        </Nav.Link>
-
                         {
-                            logedIn.isSingedIn ? (<Button>Sing Out</Button>) : (<Link to='/Login'><Button>Sing Up</Button></Link>)
+                            logedIn.isSingedIn ? (<Nav.Link href='/Login'>{logedIn.name}</Nav.Link>) : <Nav.Link href='/Login'>Login</Nav.Link>
                         }
-
+                        {
+                            logedIn.isSingedIn ?(<Nav.Link href='/Login'>SingOut</Nav.Link>):<Nav.Link href='/Login'>SingUp</Nav.Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
