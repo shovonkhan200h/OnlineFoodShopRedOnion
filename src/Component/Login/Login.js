@@ -25,6 +25,7 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     const [logedIn, setLogedInUser] = useContext(cartContext)
     const [newUser, setNewuser] = useState(false)
+    const [successMessage, setSuccessMessage] = useState('');
     const [user, setUser] = useState({
         isSingedIn: false,
         name: '',
@@ -50,6 +51,7 @@ const Login = () => {
                 setUser(isSingedIn)
                 setLogedInUser(isSingedIn)
                 navigate('/');
+                setSuccessMessage(`Sing in succesful`)
 
             }).catch((error) => {
                 const errorCode = error.code;
@@ -59,18 +61,6 @@ const Login = () => {
 
             });
     }
-
-
-    // const handleOnSubmit = (e) => {
-    //     e.preventDefault(); // Prevent the default form submission behavior
-
-    //     const formData = new FormData(e.target); // Get form data
-    //     const email = formData.get('email'); // Get email value
-    //     const password = formData.get('password'); // Get password value
-
-    //     console.log(`click`)
-
-    // }
 
     const handleOnSubmit = (e) => {
         const formData = new FormData(e.target); // Get form data
@@ -87,7 +77,8 @@ const Login = () => {
                         name: email,
                         password: password
                     }
-                    setLogedInUser({...user, isSingedIn:true})
+                    setLogedInUser({ ...user, isSingedIn: true })
+                    setSuccessMessage(`Account Created succesfully`)
                     navigate('/');
                     // ...
                 })
@@ -106,9 +97,9 @@ const Login = () => {
                         name: email,
                         password: password
                     }
-                    setLogedInUser({...user,isSingedIn:true})
+                    setLogedInUser({ ...user, isSingedIn: true })
                     navigate('/');
-                    // ...
+                    setSuccessMessage(`Login succesfully`)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -117,46 +108,12 @@ const Login = () => {
         }
 
     }
-    console.log(newUser)
+
     return (
-        <Container fluid className=''>
-        <Container>
-            {
-                newUser ? (<Row>
-                    <Col lg='12' className='text-center'>
-                        <Image src={logo} width='400px' />
-                    </Col>
-
-                    <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
-                        <Form onSubmit={handleOnSubmit}>
-                            <Form.Group>
-                                <Form.Control
-                                    name='email' type='email' placeholder='email'
-                                />
-                                <Form.Control
-                                    name='password' type='password' placeholder='password'
-                                />
-                                <div className="d-grid gap-2 mt-2 btnss">
-                                    <Button variant="primary" type='submit'>
-                                        SingUp
-                                    </Button>
-                                </div>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-
-                    <Col lg='12' className='d-flex align-items-center justify-content-center'>
-                        <div className="d-grid gap-2 mt-2 btnss">
-                            <h2 className='text-center'>OR</h2>
-                            <Button onClick={googleSingIn}>Sing with Google</Button>
-                            <Button onClick={() => setNewuser(false)}>Create New User</Button>
-                        </div>
-                    </Col>
-                </Row>)
-
-                    :
-
-                    (<Row>
+        <Container fluid className='login'>
+            <Container>
+                {
+                    newUser ? (<Row>
                         <Col lg='12' className='text-center'>
                             <Image src={logo} width='400px' />
                         </Col>
@@ -165,17 +122,20 @@ const Login = () => {
                             <Form onSubmit={handleOnSubmit}>
                                 <Form.Group>
                                     <Form.Control
-                                        name='email' type='email' placeholder='email'
+                                        name='email' type='email' placeholder='Email' className='mb-2'
                                     />
                                     <Form.Control
-                                        name='password' type='password' placeholder='password'
+                                        name='password' type='password' placeholder='Password'
                                     />
                                     <div className="d-grid gap-2 mt-2 btnss">
                                         <Button variant="primary" type='submit'>
-                                            Login
+                                            SingUp
                                         </Button>
                                     </div>
                                 </Form.Group>
+                                {
+                                    successMessage
+                                }
                             </Form>
                         </Col>
 
@@ -183,13 +143,48 @@ const Login = () => {
                             <div className="d-grid gap-2 mt-2 btnss">
                                 <h2 className='text-center'>OR</h2>
                                 <Button onClick={googleSingIn}>Sing with Google</Button>
-                                <Button onClick={() => setNewuser(true)}>Already Have Account</Button>
+                                <Button onClick={() => setNewuser(false)}>Already Have Account</Button>
                             </div>
                         </Col>
-                    </Row>)
-            }
 
-        </Container>
+                    </Row>)
+
+                        :
+
+                        (<Row>
+                            <Col lg='12' className='text-center'>
+                                <Image src={logo} width='400px' />
+                            </Col>
+
+                            <Col lg='12' className='mt-5 d-flex align-items-center justify-content-center'>
+                                <Form onSubmit={handleOnSubmit}>
+                                    <Form.Group>
+                                        <Form.Control
+                                            name='email' type='email' placeholder='Email' className='mb-2'
+                                        />
+                                        <Form.Control
+                                            name='password' type='password' placeholder='Password'
+                                        />
+                                        <div className="d-grid gap-2 mt-2 btnss">
+                                            <Button variant="primary" type='submit'>
+                                                Login
+                                            </Button>
+                                        </div>
+                                    </Form.Group>
+                                </Form>
+                            </Col>
+
+                            <Col lg='12' className='d-flex align-items-center justify-content-center'>
+                                <div className="d-grid gap-2 mt-2 btnss">
+                                    <h2 className='text-center'>OR</h2>
+                                    <Button onClick={googleSingIn}>Sing with Google</Button>
+                                    <Button onClick={() => setNewuser(true)}>Create New Account</Button>
+                                </div>
+                            </Col>
+                        </Row>)
+                }
+
+            </Container>
         </Container>
     );
 };

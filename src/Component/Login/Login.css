@@ -2,4 +2,27 @@
     width: 400px;
 }
 
-
+.login{
+    /* background-image: `url(${backGroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no=repeat',
+    width: 'auto',
+    height: '80vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    postion: 'relative',
+    objectFit: 'contain' */
+    background-image:url(../../images/bannerbackground.png) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center ;
+    width: auto;
+    height: 80vh;
+    display:flex ;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    object-fit: contain;
+}
