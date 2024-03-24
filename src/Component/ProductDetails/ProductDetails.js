@@ -48,12 +48,14 @@ const ProductDetails = () => {
         <Container className='my-5'>
             <Row>
 
-                <Col lg={7}>
-                    
-                        <h2 className='fs-1'>{pd.name}</h2>
+                <Col className='d-flex flex-column align-items-center'>
+                    <div>
+                    <h2 className='fs-1'>{pd.name}</h2>
                         <p className='mt-5'>{pd.title}</p>
                         <p>{pd.desc}</p>
                    
+                    </div>
+                        
 
 
 
@@ -73,7 +75,7 @@ const ProductDetails = () => {
 
                 </Col>
 
-                <Col lg={5}>
+                <Col>
                     <img src={pd.img} alt='' width='500px' />
                 </Col>
             </Row>

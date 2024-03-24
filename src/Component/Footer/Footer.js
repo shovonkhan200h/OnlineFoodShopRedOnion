@@ -14,7 +14,7 @@ const Footer = () => {
 
                     <Col className='mt-5 mb-5' lg={6} md={6} sm={12}>
                         <Row>
-                            <Col lg={6} md={6}>
+                            <Col lg={6} md={6} sm={6}>
                                 <ul className='list-unstyled'>
                                     <li>About Food Online</li>
                                     <li>Read Our Blog</li>
@@ -23,7 +23,7 @@ const Footer = () => {
                                 </ul>
                             </Col>
 
-                            <Col lg={6} md={6}>
+                            <Col lg={6} md={6} sm={6}>
                                 <ul className='list-unstyled'>
                                     <li>About Food Online</li>
                                     <li>Read Our Blog</li>
@@ -36,9 +36,9 @@ const Footer = () => {
 
                     <Col>
                         <Row>
-                            <Col><small>Copyright @2024 </small></Col>
+                            <Col sm={4}><small>Copyright @2024 </small></Col>
                             
-                            <Col className='text-center'>
+                            <Col className='text-center' sm={8}>
                                 <ul className='list-inline'>
                                     <li className='list-inline-item me-5'>Privacy Policy</li>
                                     <li className='list-inline-item me-5'>Terms of Use</li>
