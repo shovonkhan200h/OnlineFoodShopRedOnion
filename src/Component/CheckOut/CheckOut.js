@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './CheckOut.css'
+import { cartContext } from '../../App';
 
 const CheckOut = () => {
     const itemFromCart = JSON.parse(localStorage.getItem('cart')) || [];
     const [cart, setCart] = useState(itemFromCart);
+    const [logedIn,setLogedInUser]=useContext(cartContext)
+
+
 
     // Cart Section 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
+
 
     const handleCountChange = (itemId, changeType) => {
         const updatedCart = cart.map(item => {

@@ -12,6 +12,7 @@ import './productdetails.css'
 const ProductDetails = () => {
     const { id } = useParams()
     const pd = products.find(pd => pd.id == id)
+    console.log(pd);
     const [count, setCount] = useState(1)
     const [cart, setCart] = useContext(cartContext)
 

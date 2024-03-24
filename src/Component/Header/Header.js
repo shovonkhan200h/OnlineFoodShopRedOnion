@@ -36,7 +36,7 @@ const Header = () => {
                     <Nav className="ms-auto">
                         <Nav.Link href='/checkout'>Cart {cart.length}</Nav.Link>
                         {
-                            logedIn.isSingedIn ? (<Nav.Link href='/Login'>{logedIn.name}</Nav.Link>) : <Nav.Link href='/Login'>Login</Nav.Link>
+                            logedIn.isSingedIn ? (<Nav.Link href='/OrderCompleted'>{logedIn.name}</Nav.Link>) : <Nav.Link href='/Login'>Login</Nav.Link>
                         }
                         {
                             logedIn.isSingedIn ?(<Nav.Link href='/Login'>SingOut</Nav.Link>):<Nav.Link href='/Login'>SingUp</Nav.Link>

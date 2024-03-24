@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -25,7 +25,6 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     const [logedIn, setLogedInUser] = useContext(cartContext)
     const [newUser, setNewuser] = useState(false)
-    const [successMessage, setSuccessMessage] = useState('');
     const [user, setUser] = useState({
         isSingedIn: false,
         name: '',
@@ -33,26 +32,23 @@ const Login = () => {
         photo: ''
     })
 
+
+    
     const googleSingIn = () => {
         const auth = getAuth();
         signInWithPopup(auth, provider)
             .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                const user = result.user;
-                console.log(user);
-                const { displayName, photoURL, email } = user;
-                const isSingedIn = {
+                const {displayName,photoURL, email}= result.user
+                const SingedInUser= {
                     isSingedIn: true,
                     name: displayName,
                     email: email,
                     photo: photoURL
                 }
-                setUser(isSingedIn)
-                setLogedInUser(isSingedIn)
-                navigate('/');
-                setSuccessMessage(`Sing in succesful`)
-
+                // navigate('/');
+                setUser(SingedInUser)
+                setLogedInUser(SingedInUser)
+                navigate('/')
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -63,50 +59,6 @@ const Login = () => {
     }
 
     const handleOnSubmit = (e) => {
-        const formData = new FormData(e.target); // Get form data
-        const email = formData.get('email'); // Get email value
-        const password = formData.get('password');
-
-        if (newUser) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed up 
-                    const user = userCredential.user;
-                    const isSingedIn = {
-                        isSingedIn: true,
-                        name: email,
-                        password: password
-                    }
-                    setLogedInUser({ ...user, isSingedIn: true })
-                    setSuccessMessage(`Account Created succesfully`)
-                    navigate('/');
-                    // ...
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
-                });
-        } else {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    const isSingedIn = {
-                        isSingedIn: true,
-                        name: email,
-                        password: password
-                    }
-                    setLogedInUser({ ...user, isSingedIn: true })
-                    navigate('/');
-                    setSuccessMessage(`Login succesfully`)
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                });
-        }
-
     }
 
     return (
@@ -133,9 +85,7 @@ const Login = () => {
                                         </Button>
                                     </div>
                                 </Form.Group>
-                                {
-                                    successMessage
-                                }
+                                
                             </Form>
                         </Col>
 
@@ -184,6 +134,9 @@ const Login = () => {
                         </Row>)
                 }
 
+                {
+                    user.isSingedIn && <p>welcome {user.name}</p>
+                }
             </Container>
         </Container>
     );
